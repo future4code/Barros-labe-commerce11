@@ -10,7 +10,6 @@ export const Header=styled.header`
 
 export const ImagemCabecalho = styled.img`
   display: flex;
-  margin-left: 36vw;;
   justify-items: center;
   align-items: center;
   height: 300px;
@@ -19,7 +18,7 @@ export const ImagemCabecalho = styled.img`
 export const StyleFiltro=styled.div`
  display: flex;
  flex-direction: column;
- position: absolute;
+ align-items: center;
  border: solid 2px;
  width: 360px;
  height: 584px;
@@ -42,9 +41,7 @@ export const Input = styled.input`
 export const DivProdutosLE=styled.div`
 display: flex;
 justify-content: center;
-bottom: 230px;
-position: absolute;
-left: 25%;
+
 h5{
     margin:50px;
     
@@ -52,17 +49,14 @@ h5{
 
 export const DivProdutosLD=styled.div`
 display: flex;
+flex-wrap: wrap;
+align-items: center;
 justify-content: center;
-bottom: 235px;
-position: absolute;
-left: 55%;
 `
 
 export const StyleCarrinho=styled.div`
 display: flex;
 border: solid 2px;
-margin-left: 1002px;
-margin-top: 10px;
 width: 340px;
 height: 584px;
 flex-direction: column;

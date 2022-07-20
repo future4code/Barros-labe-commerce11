@@ -1,6 +1,6 @@
 import React from "react";
 
-function Produtos2(){
+function Produtos2(props){
     return(
 <div>
     <h5>Ordenação:</h5>
