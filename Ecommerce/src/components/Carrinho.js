@@ -1,9 +1,14 @@
-import React from "react";
+import React from 'react'
 
-function Carrinho(){
+function Carrinho(props){
+
     return(
     <div>
       <h2>Carrinho:</h2>
+
+      <span>
+      </span>
+
       <button>Remover</button>
     </div>
     )
