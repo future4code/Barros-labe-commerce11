@@ -1,26 +1,26 @@
-import React, { useState } from 'react';
-import Carrinho from './components/Carrinho';
+import React, {useState} from 'react';
+
+import './App.css';
+import {listaDeDados} from "./MockDeDados";
+import PaiProduto from './components/PaiProduto';
 import Filtro from './components/Filtro';
-import Produtos from './components/Produtos';
-import Produtos2 from './components/Produtos2';
-import { DivProdutosLD, DivProdutosLE, Header, ImagemCabecalho, StyleCarrinho, StyleFiltro } from './Style';
-import { DadosDeTarefas } from './MockDeDados';
-import logo from './img/GJG.gif'
-import "./App.css"
+import Carrinho from "./components/Carrinho";
+import OrdenaItens from "./components/Ordena";
+import logo from './img/GJG.gif';
 
-
+import {ContainerPrincipal, ConteudoCentral, StyleFiltro, StyleCarrinho, Header, ImagemCabecalho} from "./style";
 
 function App() {
 
-
-
-
-  const [listaDeTarefas, setListaDeTarefas] = useState(DadosDeTarefas)
   const [querry, setQuerry] = useState("")
   const [minPrice, setMinPrice] = useState(0)
   const [maxPrice, setMaxPrice] = useState(Infinity)
+  
+  const [order, setOrder] = useState ("value");
+  const [dados] = useState(listaDeDados);
 
-  const produtosMap = listaDeTarefas
+  const mapeaDados =   
+  dados
   .filter((item) =>{
     return item.value <= maxPrice
   })
@@ -30,50 +30,58 @@ function App() {
   .filter((item) =>{
     return item.name.includes(querry)
   })
-  .map((item, index) => {return (
-    <div key={index}
-    id={item.id} 
-    name={item.name} 
-    valor={item.value}
-    imagem={item.imageUrl}
-    />
-    )})
-
+  .sort((currentValue, nextValue)=>{
+      if(order === "value") {
+        return currentValue.value - nextValue.value;
+      }
+      else {
+        return nextValue.value - currentValue.value;
+      }
+  })
+  .map(dados => {
+    return <PaiProduto nomeProduto ={dados.name} valorProduto ={dados.value} fotoProduto={dados.imageUrl}
+    key={dados.id} 
+    />   
+  })   
 
   return (
-    
-      <div className='container'>
-     <Header>
-      
-      <ImagemCabecalho src={logo} alt="logomarca" />
-      
-      </Header>
-      
-    <div className='principal'>
-    <StyleFiltro>
-      <Filtro
-      maxPrice={maxPrice}
-      setMaxPrice={setMaxPrice}
-      minPrice={minPrice}
-      setMinPrice={setMinPrice}
-      querry={querry}
-      setQuerry={setQuerry}
-      />
-    </StyleFiltro>
-    <DivProdutosLE>
-      <Produtos></Produtos>
-    </DivProdutosLE>
-    <DivProdutosLD>
-      <Produtos2></Produtos2>
-    </DivProdutosLD> 
-    <StyleCarrinho>
-      <Carrinho></Carrinho>
-    </StyleCarrinho>
+    <div className="App">
 
-    </div>
-    </div>
-    
-  );
+              <StyleFiltro>
+                <Filtro
+                  maxPrice={maxPrice}
+                  setMaxPrice={setMaxPrice}
+                  minPrice={minPrice}
+                  setMinPrice={setMinPrice}
+                  querry={querry}
+                  setQuerry={setQuerry}
+                  />
+              </StyleFiltro>
+
+              <Header>
+                <ImagemCabecalho src={logo} alt="logomarca" />
+              </Header> 
+
+              <ConteudoCentral>
+
+                 <OrdenaItens
+                  order={order}
+                  setOrder={setOrder}
+                  />
+                
+                  <ContainerPrincipal>
+                            {mapeaDados}
+                  </ContainerPrincipal>  
+                  
+              </ConteudoCentral>
+
+
+              <StyleCarrinho>
+                 <Carrinho>
+                  </Carrinho>
+              </StyleCarrinho>
+    </div>  
+  )
 }
 
 export default App;
